@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   areaSegura: {
     flex: 1,
+    position: "relative",
     backgroundColor: "#141519",
   },
   lista: {
@@ -29,6 +30,22 @@ export const styles = StyleSheet.create({
     color: "#D7D7D9",
     fontSize: 13,
     fontWeight: "700",
+  },
+  botaoCriar: {
+    position: "absolute",
+    right: 20,
+    bottom: 24,
+    width: 58,
+    height: 58,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 29,
+    backgroundColor: "#F47521",
+    elevation: 6,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
   },
   cartao: {
     width: "100%",
