@@ -7,7 +7,6 @@ export function CartaoDeAnime(anime:Anime){
     return (
         <Card style={styles.cartao} mode="elevated">
             <Card.Title title={anime.titulo} titleStyle={styles.tituloCartao} />
-            <Card.Cover source={{ uri: anime.img }} style={styles.capa} />
             <Card.Content style={styles.conteudo}>
                 <Text style={styles.resumo}>{anime.resumo}</Text>
                 <Text style={styles.episodios}>

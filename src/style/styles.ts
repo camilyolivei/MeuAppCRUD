@@ -60,11 +60,6 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "800",
   },
-  capa: {
-    height: 210,
-    borderRadius: 0,
-    backgroundColor: "#303238",
-  },
   conteudo: {
     paddingTop: 14,
     paddingBottom: 10,
@@ -103,5 +98,39 @@ export const styles = StyleSheet.create({
   },
   textoAcaoPrincipal: {
     color: "#141519",
+  },
+  fundoModal: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
+  },
+  cartaoFormulario: {
+    padding: 20,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    backgroundColor: "#23252B",
+  },
+  tituloFormulario: {
+    marginBottom: 16,
+    color: "#FFFFFF",
+    fontSize: 22,
+    fontWeight: "800",
+  },
+  campo: {
+    marginBottom: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderRadius: 4,
+    color: "#FFFFFF",
+    backgroundColor: "#34363D",
+  },
+  campoResumo: {
+    minHeight: 80,
+    textAlignVertical: "top",
+  },
+  acoesFormulario: {
+    flexDirection: "row",
+    gap: 10,
+    marginTop: 4,
   },
 });

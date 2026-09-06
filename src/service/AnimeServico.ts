@@ -1,6 +1,13 @@
-import { Anime } from "../entity/Anime";
-import { animes } from "../repository/AnimeRepositorio";
+import { Anime, NovoAnime } from "../entity/Anime";
+import {
+    animes,
+    inserir as inserirNoRepositorio,
+} from "../repository/AnimeRepositorio";
 
 export function buscarTodos(): Anime[] {
-    return animes;
+    return [...animes];
+}
+
+export function adicionarAnime(anime: NovoAnime): Anime {
+    return inserirNoRepositorio(anime);
 }
