@@ -3,7 +3,13 @@ import { Card } from "react-native-paper";
 import { Anime } from "../entity/Anime";
 import { styles } from "../style/styles";
 
-export function CartaoDeAnime(anime:Anime){
+type Props = {
+    anime: Anime;
+    aoEditar: (anime: Anime) => void;
+    aoExcluir: (id: number) => void;
+};
+
+export function CartaoDeAnime({ anime, aoEditar, aoExcluir }: Props){
     return (
         <Card style={styles.cartao} mode="elevated">
             <Card.Title title={anime.titulo} titleStyle={styles.tituloCartao} />
@@ -14,12 +20,15 @@ export function CartaoDeAnime(anime:Anime){
                 </Text>
             </Card.Content>
             <View style={styles.acoes}>
-                <Pressable style={[styles.acao, styles.acaoPrincipal]}>
+                <Pressable
+                    style={[styles.acao, styles.acaoPrincipal]}
+                    onPress={() => aoEditar(anime)}
+                >
                     <Text style={[styles.textoAcao, styles.textoAcaoPrincipal]}>
                         Editar
                     </Text>
                 </Pressable>
-                <Pressable style={styles.acao}>
+                <Pressable style={styles.acao} onPress={() => aoExcluir(anime.id)}>
                     <Text style={styles.textoAcao}>Excluir</Text>
                 </Pressable>
             </View>

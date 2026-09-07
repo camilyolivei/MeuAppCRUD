@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  SafeAreaProvider,
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { CartaoDeAnime } from "../components/CartaoDeAnime";
 import { CartaoNovoAnime } from "../components/CartaoNovoAnime";
+import { Anime } from "../entity/Anime";
 import { AnimeViewModel } from "../viewmodel/AnimeViewModel";
 import { styles } from "../style/styles";
 
@@ -20,9 +17,35 @@ export function ListaView() {
 }
 
 function ConteudoLista() {
-  const { animes, salvarAnime } = AnimeViewModel();
+  const { animes, salvarAnime, atualizarAnime, removerAnime } = AnimeViewModel();
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [animeParaEditar, setAnimeParaEditar] = useState<Anime | null>(null);
   const insets = useSafeAreaInsets();
+
+  function abrirNovoAnime() {
+    setAnimeParaEditar(null);
+    setMostrarFormulario(true);
+  }
+
+  function abrirEdicao(anime: Anime) {
+    setAnimeParaEditar(anime);
+    setMostrarFormulario(true);
+  }
+
+  function fecharFormulario() {
+    setMostrarFormulario(false);
+    setAnimeParaEditar(null);
+  }
+
+  function salvarFormulario(anime: Parameters<typeof salvarAnime>[0]) {
+    if (animeParaEditar) {
+      atualizarAnime(animeParaEditar.id, anime);
+    } else {
+      salvarAnime(anime);
+    }
+
+    fecharFormulario();
+  }
 
   return (
     <SafeAreaView style={styles.areaSegura}>
@@ -34,12 +57,18 @@ function ConteudoLista() {
         contentContainerStyle={styles.lista}
         data={animes}
         keyExtractor={(anime) => anime.id.toString()}
-        renderItem={({ item }) => <CartaoDeAnime {...item} />}
+        renderItem={({ item }) => (
+          <CartaoDeAnime
+            anime={item}
+            aoEditar={abrirEdicao}
+            aoExcluir={removerAnime}
+          />
+        )}
       />
       <Pressable
         accessibilityLabel="Criar novo anime"
         accessibilityRole="button"
-        onPress={() => setMostrarFormulario(true)}
+        onPress={abrirNovoAnime}
         style={[
           styles.botaoCriar,
           {
@@ -52,11 +81,9 @@ function ConteudoLista() {
       </Pressable>
       <CartaoNovoAnime
         visivel={mostrarFormulario}
-        aoCancelar={() => setMostrarFormulario(false)}
-        aoSalvar={(anime) => {
-          salvarAnime(anime);
-          setMostrarFormulario(false);
-        }}
+        animeParaEditar={animeParaEditar}
+        aoCancelar={fecharFormulario}
+        aoSalvar={salvarFormulario}
       />
     </SafeAreaView>
   );

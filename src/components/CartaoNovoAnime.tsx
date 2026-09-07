@@ -1,29 +1,36 @@
-import { useState } from "react";
-import {
-  Alert,
-  Modal,
-  Pressable,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { NovoAnime } from "../entity/Anime";
+import { useEffect, useState } from "react";
+import {Alert, Modal,Pressable,Text,TextInput, View} from "react-native";
+import { Anime, NovoAnime } from "../entity/Anime";
 import { styles } from "../style/styles";
 
 type Props = {
   visivel: boolean;
+  animeParaEditar: Anime | null;
   aoCancelar: () => void;
   aoSalvar: (anime: NovoAnime) => void;
 };
 
 export function CartaoNovoAnime({
   visivel,
+  animeParaEditar,
   aoCancelar,
   aoSalvar,
 }: Props) {
   const [titulo, setTitulo] = useState("");
   const [resumo, setResumo] = useState("");
   const [quantidadeEpisodios, setQuantidadeEpisodios] = useState("");
+
+  useEffect(() => {
+    if (animeParaEditar) {
+      setTitulo(animeParaEditar.titulo);
+      setResumo(animeParaEditar.resumo);
+      setQuantidadeEpisodios(animeParaEditar.quantidadeEpisodios.toString());
+    } else {
+      setTitulo("");
+      setResumo("");
+      setQuantidadeEpisodios("");
+    }
+  }, [animeParaEditar, visivel]);
 
   function salvar() {
     if (!titulo.trim() || !resumo.trim()) {
@@ -45,7 +52,9 @@ export function CartaoNovoAnime({
     <Modal visible={visivel} animationType="slide" transparent>
       <View style={styles.fundoModal}>
         <View style={styles.cartaoFormulario}>
-          <Text style={styles.tituloFormulario}>Novo anime</Text>
+          <Text style={styles.tituloFormulario}>
+            {animeParaEditar ? "Editar anime" : "Novo anime"}
+          </Text>
           <TextInput
             placeholder="Título"
             placeholderTextColor="#A9A9AD"
