@@ -1,4 +1,4 @@
-# Exercicio 03 - CRUD de Animes
+# CRUD de Animes
 
 Projeto desenvolvido com React Native e Expo.
 
