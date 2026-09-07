@@ -1,4 +1,5 @@
-import { TextInput } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TextInput, View } from "react-native";
 import { styles } from "../style/styles";
 
 type Propriedades = {
@@ -8,12 +9,15 @@ type Propriedades = {
 
 export function BarraDeBusca({ texto, aoAlterar }: Propriedades) {
   return (
-    <TextInput
-      placeholder="Buscar anime"
-      placeholderTextColor="#A9A9AD"
-      style={styles.campoBusca}
-      value={texto}
-      onChangeText={aoAlterar}
-    />
+    <View style={styles.campoBusca}>
+      <MaterialCommunityIcons name="magnify" size={22} color="#A9A9AD" />
+      <TextInput
+        placeholder="Buscar anime"
+        placeholderTextColor="#A9A9AD"
+        style={styles.textoBusca}
+        value={texto}
+        onChangeText={aoAlterar}
+      />
+    </View>
   );
 }

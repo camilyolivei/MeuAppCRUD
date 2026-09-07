@@ -34,7 +34,7 @@ function ConteudoLista() {
     <SafeAreaView style={styles.areaSegura}>
       <View style={styles.barraSuperior}>
         <Text style={styles.logotipo}>MIKA</Text>
-        <Text style={styles.navegacao}>Início  •  Minha lista</Text>
+        <Text style={styles.navegacao}>Início  •  Criação de Animes</Text>
       </View>
       <BarraDeBusca texto={textoBusca} aoAlterar={setTextoBusca} />
       <FlatList

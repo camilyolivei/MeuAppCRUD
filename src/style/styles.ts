@@ -32,6 +32,8 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
   },
   campoBusca: {
+    flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: 16,
     marginBottom: 16,
     paddingHorizontal: 14,
@@ -39,6 +41,11 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     color: "#FFFFFF",
     backgroundColor: "#34363D",
+  },
+  textoBusca: {
+    flex: 1,
+    marginLeft: 10,
+    color: "#FFFFFF",
   },
   botaoCriar: {
     position: "absolute",
@@ -96,6 +103,11 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 3,
     backgroundColor: "#34363D",
+  },
+  conteudoAcao: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
   },
   acaoPrincipal: {
     backgroundColor: "#F47521",

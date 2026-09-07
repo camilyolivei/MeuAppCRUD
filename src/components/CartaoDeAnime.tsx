@@ -1,4 +1,5 @@
 import { Alert, Platform, Text, Pressable, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Card } from "react-native-paper";
 import { Anime } from "../entity/Anime";
 import { styles } from "../style/styles";
@@ -46,15 +47,19 @@ export function CartaoDeAnime({ anime, aoEditar, aoExcluir }: Propriedades){
                     style={[styles.acao, styles.acaoPrincipal]}
                     onPress={() => aoEditar(anime)}
                 >
-                    <Text style={[styles.textoAcao, styles.textoAcaoPrincipal]}>
-                        Editar
-                    </Text>
+                    <View style={styles.conteudoAcao}>
+                        <MaterialCommunityIcons name="pencil" size={18} color="#141519" />
+                        <Text style={[styles.textoAcao, styles.textoAcaoPrincipal]}>Editar</Text>
+                    </View>
                 </Pressable>
                 <Pressable
                     style={styles.acao}
                     onPress={confirmarExclusao}
                 >
-                    <Text style={styles.textoAcao}>Excluir</Text>
+                    <View style={styles.conteudoAcao}>
+                        <MaterialCommunityIcons name="delete" size={18} color="#FFFFFF" />
+                        <Text style={styles.textoAcao}>Excluir</Text>
+                    </View>
                 </Pressable>
             </View>
         </Card>
