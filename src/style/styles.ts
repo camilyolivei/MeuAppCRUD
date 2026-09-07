@@ -31,6 +31,15 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "700",
   },
+  campoBusca: {
+    marginHorizontal: 16,
+    marginBottom: 16,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderRadius: 4,
+    color: "#FFFFFF",
+    backgroundColor: "#34363D",
+  },
   botaoCriar: {
     position: "absolute",
     right: 20,

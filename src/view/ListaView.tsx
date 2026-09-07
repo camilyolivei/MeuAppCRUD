@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { CartaoDeAnime } from "../components/CartaoDeAnime";
 import { CartaoNovoAnime } from "../components/CartaoNovoAnime";
+import { BarraDeBusca } from "../components/BarraDeBusca";
 import { Anime } from "../entity/Anime";
 import { AnimeViewModel } from "../viewmodel/AnimeViewModel";
 import { styles } from "../style/styles";
@@ -20,7 +21,16 @@ function ConteudoLista() {
   const { animes, adicionar, atualizarAnime, removerAnime } = AnimeViewModel();
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [animeParaEditar, setAnimeParaEditar] = useState<Anime | null>(null);
+  const [textoBusca, setTextoBusca] = useState("");
   const insets = useSafeAreaInsets();
+  const animesFiltrados = animes.filter((anime) => {
+    const busca = textoBusca.trim().toLowerCase();
+
+    return (
+      anime.titulo.toLowerCase().includes(busca) ||
+      anime.resumo.toLowerCase().includes(busca)
+    );
+  });
 
   function abrirNovoAnime() {
     setAnimeParaEditar(null);
@@ -62,9 +72,10 @@ function ConteudoLista() {
         <Text style={styles.logotipo}>MIKA</Text>
         <Text style={styles.navegacao}>Início  •  Minha lista</Text>
       </View>
+      <BarraDeBusca texto={textoBusca} aoAlterar={setTextoBusca} />
       <FlatList
         contentContainerStyle={styles.lista}
-        data={animes}
+        data={animesFiltrados}
         keyExtractor={(anime) => anime.id.toString()}
         renderItem={({ item }) => (
           <CartaoDeAnime
