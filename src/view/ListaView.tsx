@@ -1,12 +1,10 @@
-import { useState } from "react";
-import { Alert, FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { CartaoDeAnime } from "../components/CartaoDeAnime";
 import { CartaoNovoAnime } from "../components/CartaoNovoAnime";
 import { BarraDeBusca } from "../components/BarraDeBusca";
-import { Anime } from "../entity/Anime";
-import { AnimeViewModel } from "../viewmodel/AnimeViewModel";
+import { useAnimeViewModel } from "../viewmodel/AnimeViewModel";
 import { styles } from "../style/styles";
 
 export function ListaView() {
@@ -18,53 +16,19 @@ export function ListaView() {
 }
 
 function ConteudoLista() {
-  const { animes, adicionar, atualizarAnime, removerAnime } = AnimeViewModel();
-  const [mostrarFormulario, setMostrarFormulario] = useState(false);
-  const [animeParaEditar, setAnimeParaEditar] = useState<Anime | null>(null);
-  const [textoBusca, setTextoBusca] = useState("");
+  const {
+    animesFiltrados,
+    mostrarFormulario,
+    animeParaEditar,
+    textoBusca,
+    abrirNovoAnime,
+    abrirEdicao,
+    fecharFormulario,
+    salvarFormulario,
+    setTextoBusca,
+    removerAnime,
+  } = useAnimeViewModel();
   const insets = useSafeAreaInsets();
-  const animesFiltrados = animes.filter((anime) => {
-    const busca = textoBusca.trim().toLowerCase();
-
-    return (
-      anime.titulo.toLowerCase().includes(busca) ||
-      anime.resumo.toLowerCase().includes(busca)
-    );
-  });
-
-  function abrirNovoAnime() {
-    setAnimeParaEditar(null);
-    setMostrarFormulario(true);
-  }
-
-  function abrirEdicao(anime: Anime) {
-    setAnimeParaEditar(anime);
-    setMostrarFormulario(true);
-  }
-
-  function fecharFormulario() {
-    setMostrarFormulario(false);
-    setAnimeParaEditar(null);
-  }
-
-  function salvarFormulario(anime: Parameters<typeof adicionar>[0]) {
-    if (animeParaEditar) {
-      atualizarAnime(animeParaEditar.id, anime);
-    } else {
-      const resultado = adicionar(anime);
-
-      if (!resultado.sucesso) {
-        const mensagem = resultado.motivo === "duplicado"
-          ? "Já existe um anime com esse título."
-          : "Preencha título e resumo.";
-
-        Alert.alert("Não foi possível adicionar", mensagem);
-        return;
-      }
-    }
-
-    fecharFormulario();
-  }
 
   return (
     <SafeAreaView style={styles.areaSegura}>
