@@ -3,7 +3,7 @@ import {Alert, Modal,Pressable,Text,TextInput, View} from "react-native";
 import { Anime, NovoAnime } from "../entity/Anime";
 import { styles } from "../style/styles";
 
-type Props = {
+type Propriedades = {
   visivel: boolean;
   animeParaEditar: Anime | null;
   aoCancelar: () => void;
@@ -15,7 +15,7 @@ export function CartaoNovoAnime({
   animeParaEditar,
   aoCancelar,
   aoSalvar,
-}: Props) {
+}: Propriedades) {
   const [titulo, setTitulo] = useState("");
   const [resumo, setResumo] = useState("");
   const [quantidadeEpisodios, setQuantidadeEpisodios] = useState("");
@@ -43,9 +43,6 @@ export function CartaoNovoAnime({
       resumo: resumo.trim(),
       quantidadeEpisodios: Number(quantidadeEpisodios) || 0,
     });
-    setTitulo("");
-    setResumo("");
-    setQuantidadeEpisodios("");
   }
 
   return (

@@ -9,9 +9,14 @@ export function AnimeViewModel() {
     setAnimes(buscarTodos());
   }
 
-  function salvarAnime(anime: NovoAnime) {
-    adicionarAnime(anime);
-    atualizarLista();
+  function adicionar(anime: NovoAnime) {
+    const resultado = adicionarAnime(anime);
+
+    if (resultado.sucesso) {
+      setAnimes(resultado.animes);
+    }
+
+    return resultado;
   }
 
   function atualizarAnime(id: number, anime: NovoAnime) {
@@ -26,7 +31,7 @@ export function AnimeViewModel() {
 
   return {
     animes,
-    salvarAnime,
+    adicionar,
     atualizarAnime,
     removerAnime,
   };

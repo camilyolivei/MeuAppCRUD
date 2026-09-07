@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { Alert, FlatList, Pressable, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { CartaoDeAnime } from "../components/CartaoDeAnime";
@@ -17,7 +17,7 @@ export function ListaView() {
 }
 
 function ConteudoLista() {
-  const { animes, salvarAnime, atualizarAnime, removerAnime } = AnimeViewModel();
+  const { animes, adicionar, atualizarAnime, removerAnime } = AnimeViewModel();
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [animeParaEditar, setAnimeParaEditar] = useState<Anime | null>(null);
   const insets = useSafeAreaInsets();
@@ -37,11 +37,20 @@ function ConteudoLista() {
     setAnimeParaEditar(null);
   }
 
-  function salvarFormulario(anime: Parameters<typeof salvarAnime>[0]) {
+  function salvarFormulario(anime: Parameters<typeof adicionar>[0]) {
     if (animeParaEditar) {
       atualizarAnime(animeParaEditar.id, anime);
     } else {
-      salvarAnime(anime);
+      const resultado = adicionar(anime);
+
+      if (!resultado.sucesso) {
+        const mensagem = resultado.motivo === "duplicado"
+          ? "Já existe um anime com esse título."
+          : "Preencha título e resumo.";
+
+        Alert.alert("Não foi possível adicionar", mensagem);
+        return;
+      }
     }
 
     fecharFormulario();
@@ -66,7 +75,6 @@ function ConteudoLista() {
         )}
       />
       <Pressable
-        accessibilityLabel="Criar novo anime"
         accessibilityRole="button"
         onPress={abrirNovoAnime}
         style={[

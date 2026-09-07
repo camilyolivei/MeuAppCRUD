@@ -13,6 +13,12 @@ export function inserir(anime: NovoAnime): Anime {
   return novoAnime;
 }
 
+export function existePorTitulo(titulo: string): boolean {
+  return animes.some(
+    (anime) => anime.titulo.toLowerCase() === titulo.toLowerCase(),
+  );
+}
+
 export function editar(id: number, anime: NovoAnime): void {
   const indice = animes.findIndex((item) => item.id === id);
 

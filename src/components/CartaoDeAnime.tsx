@@ -3,13 +3,13 @@ import { Card } from "react-native-paper";
 import { Anime } from "../entity/Anime";
 import { styles } from "../style/styles";
 
-type Props = {
+type Propriedades = {
     anime: Anime;
     aoEditar: (anime: Anime) => void;
     aoExcluir: (id: number) => void;
 };
 
-export function CartaoDeAnime({ anime, aoEditar, aoExcluir }: Props){
+export function CartaoDeAnime({ anime, aoEditar, aoExcluir }: Propriedades){
     return (
         <Card style={styles.cartao} mode="elevated">
             <Card.Title title={anime.titulo} titleStyle={styles.tituloCartao} />
